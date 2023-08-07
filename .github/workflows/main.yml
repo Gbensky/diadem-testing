@@ -22,14 +22,14 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3.1.4
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          CODECOV_TOKEN: da850676-620c-4fef-bdf4-9360e3e02ba7
         with:
           file: ./coverage/lcov.info
 
       - name: Check coverage percentage
         run: |
           COVERAGE_THRESHOLD=70
-          ACTUAL_COVERAGE=$(curl -s "https://codecov.io/api/gh/diadem22/diadem-to-do-app/commits/1c2c801747abc9eed361cd622161025e541306d7" | jq -r '.commit.totals.c')
+          ACTUAL_COVERAGE=$(curl -s "https://codecov.io/api/gh/${{ github.repository }}/commits/${{ github.sha }}" | jq -r '.commit.totals.c')
           echo $ACTUAL_COVERAGE
           if (( $(echo "$ACTUAL_COVERAGE >= $COVERAGE_THRESHOLD" | bc -l) )); then
             echo "Code coverage is within the threshold."
