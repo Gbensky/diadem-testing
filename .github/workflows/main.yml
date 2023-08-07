@@ -35,7 +35,7 @@ jobs:
           echo $REPO
           echo $COMMIT
           echo $URL
-          ACTUAL_COVERAGE=$(curl -s ${URL} -H 'Authorization: token IUDJ1QRL7P')
+          ACTUAL_COVERAGE=$(curl --request GET ${URL})
           echo $ACTUAL_COVERAGE
           ACTUAL_COVERAGE1=$(curl -s https://codecov.io/api/gh/Gbensky/diadem-testing/commits/e67c3f50b186d1380c1fdf3834481ff414d67d04)
           echo $ACTUAL_COVERAGE1
