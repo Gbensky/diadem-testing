@@ -31,7 +31,7 @@ jobs:
           COVERAGE_THRESHOLD=70
           REPO=${{ github.repository }}
           COMMIT=${{ github.sha }}
-          URL=https://codecov.io/api/gh/${{ github.repository }}/commits/${{ github.sha }}
+          URL=https://codecov.io/api/gh/Gbensky/diadem-testing/commits/${{ github.sha }}
           echo $REPO
           echo $COMMIT
           echo $URL
