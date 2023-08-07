@@ -29,21 +29,12 @@ jobs:
       - name: Check coverage percentage
         run: |
           COVERAGE_THRESHOLD=70
-          sleep 300
-          REPO=${{ github.repository }}
-          COMMIT=${{ github.sha }}
-          #URL=https://codecov.io/api/gh/Gbensky/diadem-testing/commits/${{ github.sha }}
-          URL=https://api.codecov.io/api/v2/github/Gbensky/repos/diadem-testing/commits/${{ github.sha }}
-          echo $REPO
-          echo $COMMIT
-          echo $URL
-          ACTUAL_COVERAGE=$(curl --request GET --url ${URL} --header 'authorization: Bearer e0fcdf15-2802-4a75-957d-baaf5932cb5f')
+          sleep 60
+          ACTUAL_COVERAGE=$(curl -s "https://codecov.io/api/gh/${{ github.repository }}/commits/${{ github.sha }}" | jq -r '.commit.totals.c')
           echo $ACTUAL_COVERAGE
-          ACTUAL_COVERAGE1=$(curl -s https://codecov.io/api/gh/Gbensky/diadem-testing/commits/e67c3f50b186d1380c1fdf3834481ff414d67d04)
-          echo $ACTUAL_COVERAGE1
           if (( $(echo "$ACTUAL_COVERAGE >= $COVERAGE_THRESHOLD" | bc -l) )); then
             echo "Code coverage is within the threshold."
           else
             echo "Code coverage is below the threshold. Expected: $COVERAGE_THRESHOLD%, Actual: $ACTUAL_COVERAGE%"
-          exit 1
+            exit 1
           fi
