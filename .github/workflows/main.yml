@@ -35,7 +35,7 @@ jobs:
           echo $REPO
           echo $COMMIT
           echo $URL
-          ACTUAL_COVERAGE=$(curl -s ${URL} | jq -r '.commit.totals.c')
+          ACTUAL_COVERAGE=$(curl -s ${URL})
           echo $ACTUAL_COVERAGE
           if (( $(echo "$ACTUAL_COVERAGE >= $COVERAGE_THRESHOLD" | bc -l) )); then
             echo "Code coverage is within the threshold."
